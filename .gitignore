@@ -1,0 +1,10 @@
+.DS_Store
+.vscode/
+.idea/
+.claude/
+*.log
+.netlify/
+node_modules/
+
+# Office lock files (Word/PowerPoint)
+~$*
