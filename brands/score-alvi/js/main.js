@@ -147,10 +147,75 @@
     }
   };
 
-  // --- SLIDE 3 — MERCADO ---
+  // --- SLIDE 3 — RESULTADOS COMPAÑÍA ---
   animations[2] = {
     enterSlide() {
       const root = document.getElementById('slide-3');
+      if (!root) return;
+
+      const rows = root.querySelectorAll('.comp-year-row');
+      const meta = root.querySelector('#comp-meta');
+      const progFill = root.querySelector('.comp-progress-fill');
+      const legend = root.querySelector('.comp-progress-legend');
+      const metaValueEl = root.querySelector('.comp-meta-value');
+
+      gsap.set(['#comp-title', '#comp-subtitle',
+                '#comp-results .comp-eyebrow', meta, legend], { opacity: 0 });
+      gsap.set(rows, { opacity: 0, x: -20 });
+      gsap.set(progFill, { width: '0%' });
+
+      // Reset counters
+      root.querySelectorAll('[data-count]').forEach((el) => { el.textContent = '0'; });
+
+      const tl = gsap.timeline();
+      tl.fromTo('#comp-title',
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+      tl.fromTo('#comp-subtitle',
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3');
+      tl.fromTo('#comp-results .comp-eyebrow',
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.1');
+
+      rows.forEach((row, i) => {
+        tl.to(row, {
+          opacity: 1, x: 0, duration: 0.5, ease: 'power2.out',
+          onStart() {
+            const numEl = row.querySelector('.comp-num');
+            if (numEl && numEl.dataset.count) {
+              animateCounter(numEl, parseInt(numEl.dataset.count), 1.6, 0);
+            }
+          }
+        }, i === 0 ? '-=0.1' : '-=0.4');
+      });
+
+      // Meta panel
+      tl.fromTo(meta,
+        { opacity: 0, x: 30 },
+        {
+          opacity: 1, x: 0, duration: 0.65, ease: 'power3.out',
+          onStart() {
+            if (metaValueEl && metaValueEl.dataset.count) {
+              animateCounter(metaValueEl, parseInt(metaValueEl.dataset.count), 1.4, 0);
+            }
+          }
+        }, '-=0.6');
+
+      // Progress bar
+      const pct = parseFloat(progFill.dataset.pct);
+      tl.to(progFill, {
+        width: pct + '%', duration: 0.9, ease: 'power3.out'
+      }, '-=0.3');
+
+      tl.to(legend, { opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.4');
+    }
+  };
+
+  // --- SLIDE 4 — MERCADO ---
+  animations[3] = {
+    enterSlide() {
+      const root = document.getElementById('slide-4');
       if (!root) return;
 
       const kpiCards = root.querySelectorAll('.market-kpi');
@@ -162,7 +227,7 @@
       gsap.set(['#market-title', '#market-subtitle', '#market-insight',
                 '#market-funnel .funnel-eyebrow',
                 '#market-chart .market-chart-eyebrow',
-                '#slide-3 .slide-source'], { opacity: 0 });
+                '#slide-4 .slide-source'], { opacity: 0 });
       gsap.set(kpiCards, { opacity: 0, y: 20 });
       gsap.set(funnelSlices, { opacity: 0, width: '0%' });
       gsap.set(barFills, { height: '0%' });
@@ -231,7 +296,7 @@
               '-=0.32');
       });
 
-      tl.fromTo('#slide-3 .slide-source',
+      tl.fromTo('#slide-4 .slide-source',
         { opacity: 0 },
         { opacity: 0.6, duration: 0.3 }, '-=0.2');
     }
@@ -274,33 +339,33 @@
       { opacity: 0.6, duration: 0.3 }, '-=0.2');
   }
 
-  // --- SLIDE 4 — Resultados YTD ($) ---
-  animations[3] = {
+  // --- SLIDE 5 — Resultados YTD ($) ---
+  animations[4] = {
     enterSlide() {
-      animateYTDResult('slide-4', 'ytd-pesos-title', 'ytd-pesos-subtitle',
+      animateYTDResult('slide-5', 'ytd-pesos-title', 'ytd-pesos-subtitle',
                        'ytd-pesos-hero', 'ytd-pesos-claves', 0);
     }
   };
 
-  // --- SLIDE 5 — Resultados YTD (UN) ---
-  animations[4] = {
+  // --- SLIDE 6 — Resultados YTD (UN) ---
+  animations[5] = {
     enterSlide() {
-      animateYTDResult('slide-5', 'ytd-un-title', 'ytd-un-subtitle',
+      animateYTDResult('slide-6', 'ytd-un-title', 'ytd-un-subtitle',
                        'ytd-un-hero', 'ytd-un-claves', 0);
     }
   };
 
-  // --- SLIDE 6 — Proyecciones 2026 ---
-  animations[5] = {
+  // --- SLIDE 7 — Proyecciones 2026 ---
+  animations[6] = {
     enterSlide() {
-      const root = document.getElementById('slide-6');
+      const root = document.getElementById('slide-7');
       if (!root) return;
       const cards = root.querySelectorAll('.proj-card');
       const arrow = root.querySelector('#proj-arrow');
       const claves = root.querySelectorAll('.proj-clave');
 
       gsap.set(['#proj-title', '#proj-subtitle', arrow, claves,
-                '#slide-6 .slide-source'], { opacity: 0 });
+                '#slide-7 .slide-source'], { opacity: 0 });
       gsap.set(cards, { opacity: 0, y: 30 });
 
       root.querySelectorAll('.proj-value').forEach((el) => { el.textContent = '0'; });
@@ -337,17 +402,17 @@
         opacity: 1, duration: 0.5, ease: 'power2.out', stagger: 0.15
       }, '-=0.4');
 
-      tl.fromTo('#slide-6 .slide-source',
+      tl.fromTo('#slide-7 .slide-source',
         { opacity: 0 },
         { opacity: 0.6, duration: 0.3 }, '-=0.2');
     }
   };
 
-  // --- SLIDE 7 — Section intro ---
-  animations[6] = { enterSlide() { animateSectionIntro('slide-7'); } };
+  // --- SLIDE 8 — Section intro ---
+  animations[7] = { enterSlide() { animateSectionIntro('slide-8'); } };
 
-  // --- SLIDE 8 — Video Polonia ---
-  animations[7] = {
+  // --- SLIDE 9 — Video Polonia ---
+  animations[8] = {
     enterSlide() {
       disableClickZones();
 
@@ -375,10 +440,10 @@
     }
   };
 
-  // --- SLIDE 9 — CD Score (2 fotos) ---
-  animations[8] = {
+  // --- SLIDE 10 — CD Score (2 fotos) ---
+  animations[9] = {
     enterSlide() {
-      const root = document.getElementById('slide-9');
+      const root = document.getElementById('slide-10');
       if (!root) return;
       const photos = root.querySelectorAll('.cd-photo');
 
@@ -401,8 +466,8 @@
     }
   };
 
-  // --- SLIDE 10 — Dolor maquilado (split, ahora con video) ---
-  animations[9] = {
+  // --- SLIDE 11 — Dolor maquilado (split, ahora con video) ---
+  animations[10] = {
     enterSlide() {
       disableClickZones();
 
@@ -438,10 +503,10 @@
     }
   };
 
-  // --- SLIDE 11 — Cierre lite ---
-  animations[10] = {
+  // --- SLIDE 12 — Cierre lite ---
+  animations[11] = {
     enterSlide() {
-      gsap.set(['#cierre-logo', '#cierre-phrase', '#slide-11 .cierre-partner'], { opacity: 0 });
+      gsap.set(['#cierre-logo', '#cierre-phrase', '#slide-12 .cierre-partner'], { opacity: 0 });
 
       const tl = gsap.timeline();
       tl.fromTo('#cierre-logo',
@@ -450,7 +515,7 @@
       tl.fromTo('#cierre-phrase',
         { opacity: 0, y: 30 },
         { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3');
-      tl.fromTo('#slide-11 .cierre-partner',
+      tl.fromTo('#slide-12 .cierre-partner',
         { opacity: 0 },
         { opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.1');
     }

@@ -146,7 +146,190 @@
 }
 
 /* ==================================================================
-   SLIDE 3 — MERCADO: TOTAL CHILE
+   SLIDE 3 — RESULTADOS COMPAÑÍA (split: años a un lado, meta al otro)
+   ================================================================== */
+.slide-comp {
+  justify-content: flex-start;
+  padding-top: 64px;
+  gap: 18px;
+}
+
+.comp-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  width: 100%;
+  max-width: 1180px;
+  margin-top: 22px;
+  align-items: center;
+}
+
+.comp-eyebrow {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+/* --- Columna izquierda: 2025 + 2026 --- */
+.comp-results {
+  display: flex;
+  flex-direction: column;
+}
+
+.comp-year-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 18px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.comp-year-row:last-child {
+  border-bottom: none;
+}
+
+.comp-year {
+  font-size: clamp(28px, 3vw, 38px);
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  min-width: 90px;
+}
+
+.comp-year-highlight .comp-year {
+  color: var(--accent);
+}
+
+.comp-num-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.comp-num {
+  font-size: clamp(34px, 4.2vw, 56px);
+  color: var(--text);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.comp-year-highlight .comp-num {
+  color: var(--accent);
+  text-shadow: 0 0 40px rgba(244, 255, 0, 0.3);
+  font-size: clamp(40px, 5vw, 66px);
+}
+
+.comp-num-unit {
+  font-size: clamp(13px, 1.4vw, 16px);
+  color: var(--text-muted);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.comp-delta {
+  grid-column: 2;
+  font-size: clamp(13px, 1.4vw, 15px);
+  font-weight: 600;
+  color: #6ed78a;
+  margin-top: 4px;
+}
+
+/* --- Columna derecha: Meta --- */
+.comp-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 28px 32px;
+  background: linear-gradient(135deg,
+              rgba(244, 255, 0, 0.07),
+              rgba(244, 255, 0, 0.02));
+  border-left: 3px solid var(--accent);
+  border-radius: 0 14px 14px 0;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.comp-meta .comp-eyebrow {
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.comp-meta-value-row {
+  display: flex;
+  align-items: baseline;
+  line-height: 1;
+}
+
+.comp-meta-value {
+  font-size: clamp(90px, 11vw, 160px);
+  color: var(--accent);
+  text-shadow: 0 0 60px rgba(244, 255, 0, 0.4);
+  line-height: 0.95;
+}
+
+.comp-meta-suffix {
+  font-size: clamp(44px, 5.5vw, 74px);
+  color: var(--accent);
+}
+
+.comp-meta-label {
+  font-size: clamp(13px, 1.5vw, 16px);
+  color: var(--text-muted);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin: 6px 0 24px 0;
+}
+
+.comp-progress {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.comp-progress-bar {
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.comp-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, rgba(244, 255, 0, 0.55), var(--accent));
+  border-radius: 5px;
+  box-shadow: 0 0 14px rgba(244, 255, 0, 0.4);
+}
+
+.comp-progress-legend {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  margin-top: 10px;
+  font-size: clamp(13px, 1.4vw, 15px);
+  letter-spacing: 0.02em;
+}
+
+.comp-progress-legend .accent {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(16px, 1.8vw, 20px);
+}
+
+@media (max-width: 768px) {
+  .comp-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .comp-meta-value {
+    font-size: clamp(70px, 22vw, 120px);
+  }
+}
+
+/* ==================================================================
+   SLIDE 4 — MERCADO: TOTAL CHILE
    ================================================================== */
 .slide-market {
   justify-content: flex-start;
