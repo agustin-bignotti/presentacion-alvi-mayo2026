@@ -50,23 +50,23 @@
 
   // ============================================================
   // Fix: clicks sobre <video> no deben disparar nav del deck.
-  // El motor usa #click-prev/next como zonas absolutas; el wrapper
-  // del video tiene z-index 60 (sube por encima), y además paramos
-  // la propagación de clicks dentro del video.
+  // Los click-zones #click-prev/next viven a nivel #presentation
+  // con position: fixed y z-index: 50 — están SIEMPRE encima del
+  // contenido del slide. Para que el video reciba play, en los
+  // slides de video ocultamos esas zonas; el presentador navega
+  // con teclado o con los botones circulares nav-prev/next.
   // ============================================================
-  function isolateVideo(videoEl) {
-    if (!videoEl) return;
-    const stop = (e) => e.stopPropagation();
-    ['click', 'pointerdown', 'mousedown', 'mouseup'].forEach((ev) => {
-      videoEl.addEventListener(ev, stop);
-    });
-    // El wrapper también captura por si el click cae en los bordes/controles
-    const wrap = videoEl.closest('.video-wrap');
-    if (wrap) {
-      ['click', 'pointerdown', 'mousedown', 'mouseup'].forEach((ev) => {
-        wrap.addEventListener(ev, stop);
-      });
-    }
+  function disableClickZones() {
+    const cp = document.getElementById('click-prev');
+    const cn = document.getElementById('click-next');
+    if (cp) cp.style.display = 'none';
+    if (cn) cn.style.display = 'none';
+  }
+  function enableClickZones() {
+    const cp = document.getElementById('click-prev');
+    const cn = document.getElementById('click-next');
+    if (cp) cp.style.display = '';
+    if (cn) cn.style.display = '';
   }
 
   // ============================================================
@@ -342,6 +342,8 @@
   // --- SLIDE 8 — Video Polonia ---
   animations[7] = {
     enterSlide() {
+      disableClickZones();
+
       gsap.set(['#polonia-title', '#polonia-subtitle', '#polonia-video-wrap', '#polonia-caption'],
                { opacity: 0 });
 
@@ -360,6 +362,7 @@
         { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3');
     },
     leaveSlide() {
+      enableClickZones();
       const v = document.getElementById('polonia-video');
       if (v && !v.paused) v.pause();
     }
