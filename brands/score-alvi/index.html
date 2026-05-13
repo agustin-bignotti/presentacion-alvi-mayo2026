@@ -30,8 +30,45 @@
       </div>
     </section>
 
-    <!-- ========== SLIDE 2 — MERCADO: TOTAL CHILE ========== -->
-    <section class="slide slide-market" id="slide-2">
+    <!-- ========== SLIDE 2 — RESUMEN SCORE 2025 (§7.2) ========== -->
+    <section class="slide slide-kpis" id="slide-2" data-steps="4">
+      <h2 class="slide-title font-display" id="kpi-title">Resumen Score 2025</h2>
+      <p class="slide-subtitle" id="kpi-subtitle">Score crece un 15% respecto al año anterior</p>
+
+      <div class="kpi-stage" id="kpi-stage">
+
+        <div class="kpi-card" data-step="1">
+          <div class="kpi-value-row">
+            <span class="kpi-value font-display" data-count="113">0</span>
+            <span class="kpi-suffix font-display">M</span>
+          </div>
+          <p class="kpi-label">Latas vendidas en Chile 2025</p>
+        </div>
+
+        <div class="kpi-card" data-step="2">
+          <span class="kpi-value font-display" data-count="3.6" data-decimal="1">0</span>
+          <p class="kpi-label">Latas vendidas por segundo</p>
+        </div>
+
+        <div class="kpi-card" data-step="3">
+          <span class="kpi-value font-display kpi-rank">#1</span>
+          <p class="kpi-label">Líderes en la categoría en unidades vendidas</p>
+        </div>
+
+        <div class="kpi-card" data-step="4">
+          <div class="kpi-value-row">
+            <span class="kpi-prefix font-display">+</span>
+            <span class="kpi-value font-display" data-count="15">0</span>
+            <span class="kpi-suffix font-display">%</span>
+          </div>
+          <p class="kpi-label">Crecimiento vs año anterior</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========== SLIDE 3 — MERCADO: TOTAL CHILE ========== -->
+    <section class="slide slide-market" id="slide-3">
       <h2 class="slide-title font-display" id="market-title">Mercado: Total Chile</h2>
       <p class="slide-subtitle" id="market-subtitle">Energy Drinks · Market Overview</p>
 
@@ -60,33 +97,31 @@
           </div>
         </div>
 
-        <div class="market-shares" id="market-shares">
-          <span class="market-shares-eyebrow">Brand Shares · % Share (USD) · 2025</span>
+        <!-- Embudo de brand shares -->
+        <div class="funnel-wrap" id="market-funnel">
+          <span class="funnel-eyebrow">Brand Shares · % Share (USD) · 2025</span>
 
-          <div class="share-row share-row-highlight" data-share="34.7">
-            <span class="share-name">Score</span>
-            <div class="share-bar"><div class="share-bar-fill" style="width: 34.7%"></div></div>
-            <span class="share-num font-display">34,7%</span>
-          </div>
-          <div class="share-row" data-share="29.8">
-            <span class="share-name">Monster</span>
-            <div class="share-bar"><div class="share-bar-fill" style="width: 29.8%"></div></div>
-            <span class="share-num font-display">29,8%</span>
-          </div>
-          <div class="share-row" data-share="20.3">
-            <span class="share-name">Red Bull</span>
-            <div class="share-bar"><div class="share-bar-fill" style="width: 20.3%"></div></div>
-            <span class="share-num font-display">20,3%</span>
-          </div>
-          <div class="share-row" data-share="6.0">
-            <span class="share-name">Rockstar</span>
-            <div class="share-bar"><div class="share-bar-fill" style="width: 6.0%"></div></div>
-            <span class="share-num font-display">6,0%</span>
-          </div>
-          <div class="share-row" data-share="9.3">
-            <span class="share-name">Otros</span>
-            <div class="share-bar"><div class="share-bar-fill" style="width: 9.3%"></div></div>
-            <span class="share-num font-display">9,3%</span>
+          <div class="funnel">
+            <div class="funnel-slice funnel-slice-highlight" data-width="100" data-share="34.7">
+              <span class="funnel-name">Score</span>
+              <span class="funnel-pct font-display">34,7%</span>
+            </div>
+            <div class="funnel-slice" data-width="86" data-share="29.8">
+              <span class="funnel-name">Monster</span>
+              <span class="funnel-pct font-display">29,8%</span>
+            </div>
+            <div class="funnel-slice" data-width="59" data-share="20.3">
+              <span class="funnel-name">Red Bull</span>
+              <span class="funnel-pct font-display">20,3%</span>
+            </div>
+            <div class="funnel-slice" data-width="27" data-share="9.3">
+              <span class="funnel-name">Otros</span>
+              <span class="funnel-pct font-display">9,3%</span>
+            </div>
+            <div class="funnel-slice" data-width="17" data-share="6.0">
+              <span class="funnel-name">Rockstar</span>
+              <span class="funnel-pct font-display">6,0%</span>
+            </div>
           </div>
         </div>
 
@@ -112,86 +147,126 @@
       <p class="slide-source">Fuente: Euromonitor</p>
     </section>
 
-    <!-- ========== SLIDE 3 — RESULTADOS YTD ($) ========== -->
-    <section class="slide slide-cadenas" id="slide-3">
-      <h2 class="slide-title font-display" id="ytd-pesos-title">Resultados YTD ($)</h2>
-      <p class="slide-subtitle" id="ytd-pesos-subtitle">Score × Alvi · Año en curso</p>
+    <!-- ========== SLIDE 4 — RESULTADOS YTD ($) ========== -->
+    <section class="slide slide-result" id="slide-4">
+      <h2 class="slide-title font-display" id="ytd-pesos-title">Resultados YTD</h2>
+      <p class="slide-subtitle" id="ytd-pesos-subtitle">Score × Alvi · Facturación</p>
 
-      <div class="cadenas-wrap">
-        <div class="cadenas-header">
-          <span class="cadenas-col-name">Retail</span>
-          <span class="cadenas-col-val">Facturación</span>
-          <span class="cadenas-col-val">Facturación AA</span>
-          <span class="cadenas-col-delta">Var %</span>
-          <span class="cadenas-col-val">Dif. Facturación</span>
+      <div class="result-hero" id="ytd-pesos-hero">
+        <span class="result-eyebrow">Facturación YTD 2026</span>
+        <div class="result-amount-row">
+          <span class="result-currency font-display">$</span>
+          <span class="result-amount font-display" data-count="1404465684">0</span>
         </div>
-
-        <div class="cadenas-row cadenas-highlight">
-          <span class="cadenas-name">Alvi</span>
-          <span class="cadenas-val">$1.404.465.684</span>
-          <span class="cadenas-val">$1.338.299.950</span>
-          <span class="cadenas-delta cadenas-delta-pos">↑ +5%</span>
-          <span class="cadenas-val cadenas-delta-pos">↑ $66.165.733</span>
+        <div class="result-delta-row">
+          <span class="result-delta-chip">↑ +5% vs AA</span>
+          <span class="result-delta-abs">+$66.165.733</span>
         </div>
-
-        <div class="cadenas-row cadenas-total">
-          <span class="cadenas-name">Total</span>
-          <span class="cadenas-val">$1.404.465.684</span>
-          <span class="cadenas-val">$1.338.299.950</span>
-          <span class="cadenas-delta cadenas-delta-pos">+5%</span>
-          <span class="cadenas-val cadenas-delta-pos">$66.165.733</span>
+        <div class="result-prev">
+          <span class="result-prev-label">Facturación año anterior</span>
+          <span class="result-prev-value">$1.338.299.950</span>
         </div>
       </div>
 
-      <div class="cadenas-insight" id="ytd-pesos-insight">
-        <span class="cadenas-insight-eyebrow">Claves</span>
-        <p><span class="accent">+5% vs AA</span> en facturación, apalancado por aperturas. El consumidor chileno busca opciones económicas de calidad — las energéticas pasaron a ser bebidas <em>mainstream</em>.</p>
-      </div>
+      <ul class="result-claves" id="ytd-pesos-claves">
+        <li class="result-clave">
+          <span class="result-clave-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+          </span>
+          <div class="result-clave-body">
+            <strong>+5% vs AA</strong> en facturación.
+          </div>
+        </li>
+        <li class="result-clave">
+          <span class="result-clave-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+          </span>
+          <div class="result-clave-body">
+            Apalancado por <strong>aperturas</strong>.
+          </div>
+        </li>
+        <li class="result-clave">
+          <span class="result-clave-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+          </span>
+          <div class="result-clave-body">
+            Consumidor chileno busca <strong>opciones económicas</strong> de calidad.
+          </div>
+        </li>
+        <li class="result-clave">
+          <span class="result-clave-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+          </span>
+          <div class="result-clave-body">
+            Energéticas cumpliendo rol de <strong>bebidas mainstream</strong>.
+          </div>
+        </li>
+      </ul>
 
       <p class="slide-source">Fuente: Datos internos Score · YTD 2026</p>
     </section>
 
-    <!-- ========== SLIDE 4 — RESULTADOS YTD (UN) ========== -->
-    <section class="slide slide-cadenas" id="slide-4">
-      <h2 class="slide-title font-display" id="ytd-un-title">Resultados YTD (Unidades)</h2>
-      <p class="slide-subtitle" id="ytd-un-subtitle">Score × Alvi · Latas vendidas</p>
+    <!-- ========== SLIDE 5 — RESULTADOS YTD (UN) ========== -->
+    <section class="slide slide-result" id="slide-5">
+      <h2 class="slide-title font-display" id="ytd-un-title">Resultados YTD</h2>
+      <p class="slide-subtitle" id="ytd-un-subtitle">Score × Alvi · Unidades vendidas</p>
 
-      <div class="cadenas-wrap">
-        <div class="cadenas-header">
-          <span class="cadenas-col-name">Retail</span>
-          <span class="cadenas-col-val">Unidades</span>
-          <span class="cadenas-col-val">Unidades AA</span>
-          <span class="cadenas-col-delta">Var %</span>
-          <span class="cadenas-col-val">Diferencia</span>
+      <div class="result-hero" id="ytd-un-hero">
+        <span class="result-eyebrow">Latas vendidas YTD 2026</span>
+        <div class="result-amount-row">
+          <span class="result-amount font-display" data-count="1720861">0</span>
+          <span class="result-unit font-display">un</span>
         </div>
-
-        <div class="cadenas-row cadenas-highlight">
-          <span class="cadenas-name">Alvi</span>
-          <span class="cadenas-val">1.720.861</span>
-          <span class="cadenas-val">1.637.597</span>
-          <span class="cadenas-delta cadenas-delta-pos">↑ +5%</span>
-          <span class="cadenas-val cadenas-delta-pos">↑ +83.264</span>
+        <div class="result-delta-row">
+          <span class="result-delta-chip">↑ +5% vs AA</span>
+          <span class="result-delta-abs">+83.264 latas</span>
         </div>
-
-        <div class="cadenas-row cadenas-total">
-          <span class="cadenas-name">Total</span>
-          <span class="cadenas-val">1.720.861</span>
-          <span class="cadenas-val">1.637.597</span>
-          <span class="cadenas-delta cadenas-delta-pos">+5%</span>
-          <span class="cadenas-val cadenas-delta-pos">+83.264</span>
+        <div class="result-prev">
+          <span class="result-prev-label">Latas año anterior</span>
+          <span class="result-prev-value">1.637.597 un</span>
         </div>
       </div>
 
-      <div class="cadenas-insight" id="ytd-un-insight">
-        <span class="cadenas-insight-eyebrow">Claves</span>
-        <p><span class="accent">+5% vs AA</span> en latas vendidas. Mismo driver que facturación: crecimiento sano apalancado en aperturas y normalización del consumo de energéticas.</p>
-      </div>
+      <ul class="result-claves" id="ytd-un-claves">
+        <li class="result-clave">
+          <span class="result-clave-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+          </span>
+          <div class="result-clave-body">
+            <strong>+5% vs AA</strong> en latas vendidas.
+          </div>
+        </li>
+        <li class="result-clave">
+          <span class="result-clave-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+          </span>
+          <div class="result-clave-body">
+            Apalancado por <strong>aperturas</strong>.
+          </div>
+        </li>
+        <li class="result-clave">
+          <span class="result-clave-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+          </span>
+          <div class="result-clave-body">
+            Crecimiento sano y sostenido en el canal.
+          </div>
+        </li>
+        <li class="result-clave">
+          <span class="result-clave-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+          </span>
+          <div class="result-clave-body">
+            Energéticas como <strong>bebidas mainstream</strong>.
+          </div>
+        </li>
+      </ul>
 
       <p class="slide-source">Fuente: Datos internos Score · YTD 2026</p>
     </section>
 
-    <!-- ========== SLIDE 5 — PROYECCIONES 2026 (UN) ========== -->
-    <section class="slide slide-proj" id="slide-5">
+    <!-- ========== SLIDE 6 — PROYECCIONES 2026 (UN) ========== -->
+    <section class="slide slide-proj" id="slide-6">
       <h2 class="slide-title font-display" id="proj-title">Proyecciones 2026 (Unidades)</h2>
       <p class="slide-subtitle" id="proj-subtitle">Score × Alvi · Crecimiento proyectado</p>
 
@@ -231,23 +306,22 @@
       <p class="slide-source">Fuente: Plan comercial Score 2026</p>
     </section>
 
-    <!-- ========== SLIDE 6 — SECTION INTRO: EFICIENCIA OPERACIONAL ========== -->
-    <section class="slide slide-section-intro" id="slide-6">
+    <!-- ========== SLIDE 7 — SECTION INTRO: EFICIENCIA OPERACIONAL ========== -->
+    <section class="slide slide-section-intro" id="slide-7">
       <span class="section-number font-display">01</span>
       <h2 class="section-title font-display">Eficiencia<br>Operacional</h2>
       <p class="section-subtitle">De Polonia a Chile</p>
     </section>
 
-    <!-- ========== SLIDE 7 — VIDEO POLONIA → CHILE ========== -->
-    <section class="slide slide-video" id="slide-7">
-      <h2 class="slide-title font-display" id="polonia-title">Eficiencia Operacional</h2>
-      <p class="slide-subtitle" id="polonia-subtitle">De Polonia hasta Chile</p>
+    <!-- ========== SLIDE 8 — VIDEO POLONIA → CHILE ========== -->
+    <section class="slide slide-video" id="slide-8">
+      <h2 class="slide-title font-display" id="polonia-title">De Polonia a Chile</h2>
+      <p class="slide-subtitle" id="polonia-subtitle">Producción europea · Operación global</p>
 
       <div class="video-wrap" id="polonia-video-wrap">
         <video id="polonia-video"
                src="../../assets/mala estiba/polonia-a-chile.mp4"
-               controls preload="metadata"
-               poster=""></video>
+               controls preload="metadata"></video>
       </div>
 
       <p class="video-caption" id="polonia-caption">
@@ -255,39 +329,65 @@
       </p>
     </section>
 
-    <!-- ========== SLIDE 8 — OPERACIÓN EN CHILE ========== -->
-    <section class="slide slide-video" id="slide-8">
+    <!-- ========== SLIDE 9 — OPERACIÓN CHILE: CD SCORE (dos fotos) ========== -->
+    <section class="slide slide-cd" id="slide-9">
       <h2 class="slide-title font-display" id="cd-title">Operación en Chile</h2>
-      <p class="slide-subtitle" id="cd-subtitle">Centro de Distribución Score</p>
+      <p class="slide-subtitle" id="cd-subtitle">CD Score · Logística propia</p>
 
-      <div class="video-wrap" id="cd-video-wrap">
-        <video id="cd-video"
-               src="../../assets/mala estiba/cd-score.mp4"
-               controls preload="metadata"
-               poster=""></video>
+      <div class="cd-photos">
+        <figure class="cd-photo cd-photo-wide" id="cd-photo-1">
+          <img src="../../assets/mala estiba/eficiencia-operativa-cd-completo..jpeg" alt="Vista panorámica del CD Score">
+          <figcaption>CD Score · Vista panorámica</figcaption>
+        </figure>
+        <figure class="cd-photo cd-photo-narrow" id="cd-photo-2">
+          <img src="../../assets/mala estiba/eficiencia-operativa.jpeg" alt="Pallets organizados en el CD">
+          <figcaption>Pallets uniformes · Listos para despacho</figcaption>
+        </figure>
       </div>
 
       <p class="video-caption" id="cd-caption">
-        Logística propia · Cobertura nacional · Stock siempre disponible
+        Logística propia <span class="dot">·</span> Cobertura nacional <span class="dot">·</span> Stock siempre disponible
       </p>
     </section>
 
-    <!-- ========== SLIDE 9 — DOLOR: MAQUILADO ========== -->
-    <section class="slide slide-foto" id="slide-9">
-      <h2 class="slide-title font-display" id="dolor-title">Dolor Operacional con Alvi: <span class="accent">Maquilado</span></h2>
-      <p class="slide-subtitle" id="dolor-subtitle">El costo oculto detrás del armado de pallets mixtos</p>
+    <!-- ========== SLIDE 10 — DOLOR: MAQUILADO (split) ========== -->
+    <section class="slide slide-dolor" id="slide-10">
+      <div class="dolor-layout">
+        <div class="dolor-text">
+          <span class="dolor-eyebrow">Dolor operacional con Alvi</span>
+          <h2 class="dolor-title font-display" id="dolor-title">
+            <span class="accent">Maquilado</span>
+          </h2>
+          <p class="dolor-subtitle" id="dolor-subtitle">El costo oculto detrás del armado de pallets mixtos por sala.</p>
 
-      <div class="foto-wrap" id="dolor-img">
-        <img src="../../assets/mala estiba/apilado.jpeg" alt="Pallets maquilados en CD">
-      </div>
+          <ul class="dolor-bullets" id="dolor-bullets">
+            <li>
+              <span class="dolor-bullet-num font-display">01</span>
+              <span>Horas-hombre destinadas al armado manual.</span>
+            </li>
+            <li>
+              <span class="dolor-bullet-num font-display">02</span>
+              <span>Riesgo de mala estiba en transporte.</span>
+            </li>
+            <li>
+              <span class="dolor-bullet-num font-display">03</span>
+              <span>Latas dañadas que no llegan a góndola.</span>
+            </li>
+          </ul>
 
-      <div class="dolor-caption" id="dolor-caption">
-        <p>El armado manual de pallets por sala consume horas-hombre, daña la presentación de la lata y aumenta el riesgo de mala estiba. <span class="accent">Oportunidad de optimizar.</span></p>
+          <div class="dolor-cta" id="dolor-cta">
+            <span class="accent">Oportunidad</span> de optimizar la operación.
+          </div>
+        </div>
+
+        <div class="dolor-photo" id="dolor-img">
+          <img src="../../assets/mala estiba/apilado.jpeg" alt="Pallets maquilados en CD">
+        </div>
       </div>
     </section>
 
-    <!-- ========== SLIDE 10 — CIERRE LITE ========== -->
-    <section class="slide slide-cierre" id="slide-10">
+    <!-- ========== SLIDE 11 — CIERRE LITE ========== -->
+    <section class="slide slide-cierre" id="slide-11">
       <div class="cierre-content">
         <img src="../../assets/Logos e Isotipos/Logo SCORE Extendido (sin fondo).png"
              alt="Score Energy Drink" class="cierre-logo" id="cierre-logo">
@@ -304,7 +404,7 @@
     <img id="global-logo" src="../../assets/Logos e Isotipos/Isotipo.png" alt="Score">
 
     <div id="progress-bar"><div id="progress-fill"></div></div>
-    <div id="slide-counter">1 / 10</div>
+    <div id="slide-counter">1 / 11</div>
 
     <button id="nav-prev" aria-label="Anterior">‹</button>
     <button id="nav-next" aria-label="Siguiente">›</button>

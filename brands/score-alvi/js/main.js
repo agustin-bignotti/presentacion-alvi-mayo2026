@@ -1,5 +1,5 @@
-/* Score × Alvi · Mayo 2026 — main.js
-   Registry de animaciones GSAP por slide. Sigue las convenciones de base-v2.
+/* Score × Alvi · Mayo 2026 — main.js (v2)
+   11 slides. Registry de animaciones GSAP por slide.
 */
 (function () {
   'use strict';
@@ -49,6 +49,27 @@
   }
 
   // ============================================================
+  // Fix: clicks sobre <video> no deben disparar nav del deck.
+  // El motor usa #click-prev/next como zonas absolutas; el wrapper
+  // del video tiene z-index 60 (sube por encima), y además paramos
+  // la propagación de clicks dentro del video.
+  // ============================================================
+  function isolateVideo(videoEl) {
+    if (!videoEl) return;
+    const stop = (e) => e.stopPropagation();
+    ['click', 'pointerdown', 'mousedown', 'mouseup'].forEach((ev) => {
+      videoEl.addEventListener(ev, stop);
+    });
+    // El wrapper también captura por si el click cae en los bordes/controles
+    const wrap = videoEl.closest('.video-wrap');
+    if (wrap) {
+      ['click', 'pointerdown', 'mousedown', 'mouseup'].forEach((ev) => {
+        wrap.addEventListener(ev, stop);
+      });
+    }
+  }
+
+  // ============================================================
   // Animations registry (0-based; HTML IDs son 1-based)
   // ============================================================
   const animations = {};
@@ -80,37 +101,71 @@
     }
   };
 
-  // --- SLIDE 2 — MERCADO: TOTAL CHILE ---
+  // --- SLIDE 2 — RESUMEN SCORE 2025 (§7.2) ---
   animations[1] = {
     enterSlide() {
-      const root = document.getElementById('slide-2');
+      const cards = document.querySelectorAll('#slide-2 .kpi-card');
+      cards.forEach((c) => {
+        gsap.set(c, { opacity: 0, y: 30 });
+        c.classList.remove('kpi-active', 'kpi-past');
+        const valEl = c.querySelector('.kpi-value:not(.kpi-rank)');
+        if (valEl) valEl.textContent = '0';
+      });
+      gsap.fromTo('#kpi-title',
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+      gsap.fromTo('#kpi-subtitle',
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', delay: 0.1 });
+    },
+    enterStep(step) {
+      const cards = document.querySelectorAll('#slide-2 .kpi-card');
+      const card = cards[step - 1];
+      if (!card) return;
+
+      cards.forEach((c, i) => {
+        if (i < step - 1) {
+          c.classList.remove('kpi-active');
+          c.classList.add('kpi-past');
+          gsap.to(c, { opacity: 0.4, duration: 0.3, ease: 'power2.out' });
+        }
+      });
+
+      card.classList.add('kpi-active');
+      gsap.fromTo(card,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+
+      const valEl = card.querySelector('.kpi-value:not(.kpi-rank)');
+      if (!valEl) return;
+      const countTo = parseFloat(valEl.dataset.count);
+      const decimal = valEl.dataset.decimal ? parseInt(valEl.dataset.decimal) : 0;
+      if (countTo && !isNaN(countTo)) animateCounter(valEl, countTo, 1.2, decimal);
+    }
+  };
+
+  // --- SLIDE 3 — MERCADO ---
+  animations[2] = {
+    enterSlide() {
+      const root = document.getElementById('slide-3');
       if (!root) return;
 
       const kpiCards = root.querySelectorAll('.market-kpi');
-      const shareRows = root.querySelectorAll('.share-row');
-      const shareFills = root.querySelectorAll('.share-bar-fill');
+      const funnelSlices = root.querySelectorAll('.funnel-slice');
       const bars = root.querySelectorAll('.market-bar');
       const barFills = root.querySelectorAll('.market-bar-fill');
       const barValues = root.querySelectorAll('.market-bar-value, .market-bar-year');
 
       gsap.set(['#market-title', '#market-subtitle', '#market-insight',
-                '#market-shares .market-shares-eyebrow',
+                '#market-funnel .funnel-eyebrow',
                 '#market-chart .market-chart-eyebrow',
-                '#slide-2 .slide-source'], { opacity: 0 });
+                '#slide-3 .slide-source'], { opacity: 0 });
       gsap.set(kpiCards, { opacity: 0, y: 20 });
-      gsap.set(shareRows, { opacity: 0, x: -16 });
-
-      // reset bar widths para repetir animación al volver
-      shareFills.forEach((f) => {
-        const width = f.style.width;
-        f.dataset.targetWidth = width;
-        f.style.width = '0%';
-      });
-
+      gsap.set(funnelSlices, { opacity: 0, width: '0%' });
       gsap.set(barFills, { height: '0%' });
       gsap.set(barValues, { opacity: 0, y: 6 });
 
-      // Reset KPI counters to 0
+      // Reset KPI counters
       root.querySelectorAll('.market-kpi-value').forEach((el) => {
         const dec = el.dataset.decimal ? parseInt(el.dataset.decimal) : 0;
         el.textContent = dec ? '0,0' : '0';
@@ -124,7 +179,6 @@
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3');
 
-      // KPIs
       tl.to(kpiCards, {
         opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.15,
         onStart() {
@@ -140,16 +194,16 @@
         { opacity: 0, y: 16 },
         { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3');
 
-      // Brand Shares
-      tl.fromTo('#market-shares .market-shares-eyebrow',
+      // Embudo
+      tl.fromTo('#market-funnel .funnel-eyebrow',
         { opacity: 0, y: 10 },
         { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.6');
 
-      shareRows.forEach((row, i) => {
-        const fill = row.querySelector('.share-bar-fill');
-        const target = fill.dataset.targetWidth || (fill.style.width || '0%');
-        tl.to(row, { opacity: 1, x: 0, duration: 0.4, ease: 'power2.out' }, i === 0 ? '-=0.4' : '-=0.25');
-        tl.to(fill, { width: target, duration: 0.7, ease: 'power3.out' }, '-=0.35');
+      funnelSlices.forEach((slice, i) => {
+        const target = slice.dataset.width + '%';
+        tl.to(slice,
+          { opacity: 1, width: target, duration: 0.55, ease: 'power3.out' },
+          i === 0 ? '-=0.4' : '-=0.4');
       });
 
       // Bar chart
@@ -164,28 +218,29 @@
         const fill = bar.querySelector('.market-bar-fill');
         const inner = bar.querySelectorAll('.market-bar-value, .market-bar-year');
 
-        tl.to(fill, { height: heightPct + '%', duration: 0.55, ease: 'power3.out' },
-              i === 0 ? '-=0.15' : '-=0.45');
+        tl.to(fill, { height: heightPct + '%', duration: 0.5, ease: 'power3.out' },
+              i === 0 ? '-=0.15' : '-=0.42');
         tl.to(inner, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out', stagger: 0.04 },
-              '-=0.35');
+              '-=0.32');
       });
 
-      tl.fromTo('#slide-2 .slide-source',
+      tl.fromTo('#slide-3 .slide-source',
         { opacity: 0 },
         { opacity: 0.6, duration: 0.3 }, '-=0.2');
     }
   };
 
-  // --- Helper compartido para slides 3 y 4 (§7.7) ---
-  function animateCadenas(slideId, titleId, subtitleId, insightId) {
+  // --- Helper compartido para slides YTD ($ y UN) ---
+  function animateYTDResult(slideId, titleId, subtitleId, heroId, clavesId, decimal) {
     const root = document.getElementById(slideId);
     if (!root) return;
-    const rows = root.querySelectorAll('.cadenas-row');
+    const claves = root.querySelectorAll('.result-clave');
+    const amountEl = root.querySelector('.result-amount');
 
-    gsap.set([`#${titleId}`, `#${subtitleId}`, `#${insightId}`,
-              `#${slideId} .cadenas-header`,
+    gsap.set([`#${titleId}`, `#${subtitleId}`, `#${heroId}`,
               `#${slideId} .slide-source`], { opacity: 0 });
-    gsap.set(rows, { opacity: 0, x: -20 });
+    gsap.set(claves, { opacity: 0, x: -20 });
+    if (amountEl) amountEl.textContent = decimal ? '0,0' : '0';
 
     const tl = gsap.timeline();
     tl.fromTo(`#${titleId}`,
@@ -194,50 +249,54 @@
     tl.fromTo(`#${subtitleId}`,
       { opacity: 0, y: 20 },
       { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3');
-    tl.fromTo(`#${slideId} .cadenas-header`,
-      { opacity: 0, y: 12 },
-      { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.2');
-    tl.to(rows,
-      { opacity: 1, x: 0, duration: 0.5, ease: 'power2.out', stagger: 0.18 }, '-=0.1');
-    tl.fromTo(`#${insightId}`,
-      { opacity: 0, y: 16 },
-      { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.2');
+    tl.fromTo(`#${heroId}`,
+      { opacity: 0, y: 24, scale: 0.98 },
+      {
+        opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'power3.out',
+        onStart() {
+          if (amountEl && amountEl.dataset.count) {
+            animateCounter(amountEl, parseFloat(amountEl.dataset.count), 1.6, decimal || 0);
+          }
+        }
+      }, '-=0.2');
+    tl.to(claves, {
+      opacity: 1, x: 0, duration: 0.4, ease: 'power2.out', stagger: 0.12
+    }, '-=0.3');
     tl.fromTo(`#${slideId} .slide-source`,
       { opacity: 0 },
       { opacity: 0.6, duration: 0.3 }, '-=0.2');
   }
 
-  // --- SLIDE 3 — Resultados YTD ($) ---
-  animations[2] = {
-    enterSlide() {
-      animateCadenas('slide-3', 'ytd-pesos-title', 'ytd-pesos-subtitle', 'ytd-pesos-insight');
-    }
-  };
-
-  // --- SLIDE 4 — Resultados YTD (UN) ---
+  // --- SLIDE 4 — Resultados YTD ($) ---
   animations[3] = {
     enterSlide() {
-      animateCadenas('slide-4', 'ytd-un-title', 'ytd-un-subtitle', 'ytd-un-insight');
+      animateYTDResult('slide-4', 'ytd-pesos-title', 'ytd-pesos-subtitle',
+                       'ytd-pesos-hero', 'ytd-pesos-claves', 0);
     }
   };
 
-  // --- SLIDE 5 — Proyecciones 2026 ---
+  // --- SLIDE 5 — Resultados YTD (UN) ---
   animations[4] = {
     enterSlide() {
-      const root = document.getElementById('slide-5');
+      animateYTDResult('slide-5', 'ytd-un-title', 'ytd-un-subtitle',
+                       'ytd-un-hero', 'ytd-un-claves', 0);
+    }
+  };
+
+  // --- SLIDE 6 — Proyecciones 2026 ---
+  animations[5] = {
+    enterSlide() {
+      const root = document.getElementById('slide-6');
       if (!root) return;
       const cards = root.querySelectorAll('.proj-card');
       const arrow = root.querySelector('#proj-arrow');
       const claves = root.querySelectorAll('.proj-clave');
 
       gsap.set(['#proj-title', '#proj-subtitle', arrow, claves,
-                '#slide-5 .slide-source'], { opacity: 0 });
+                '#slide-6 .slide-source'], { opacity: 0 });
       gsap.set(cards, { opacity: 0, y: 30 });
 
-      // Reset values to 0
-      root.querySelectorAll('.proj-value').forEach((el) => {
-        el.textContent = '0';
-      });
+      root.querySelectorAll('.proj-value').forEach((el) => { el.textContent = '0'; });
 
       const tl = gsap.timeline();
       tl.fromTo('#proj-title',
@@ -271,21 +330,17 @@
         opacity: 1, duration: 0.5, ease: 'power2.out', stagger: 0.15
       }, '-=0.4');
 
-      tl.fromTo('#slide-5 .slide-source',
+      tl.fromTo('#slide-6 .slide-source',
         { opacity: 0 },
         { opacity: 0.6, duration: 0.3 }, '-=0.2');
     }
   };
 
-  // --- SLIDE 6 — Section intro ---
-  animations[5] = {
-    enterSlide() {
-      animateSectionIntro('slide-6');
-    }
-  };
+  // --- SLIDE 7 — Section intro ---
+  animations[6] = { enterSlide() { animateSectionIntro('slide-7'); } };
 
-  // --- SLIDE 7 — Video Polonia → Chile ---
-  animations[6] = {
+  // --- SLIDE 8 — Video Polonia ---
+  animations[7] = {
     enterSlide() {
       gsap.set(['#polonia-title', '#polonia-subtitle', '#polonia-video-wrap', '#polonia-caption'],
                { opacity: 0 });
@@ -310,11 +365,15 @@
     }
   };
 
-  // --- SLIDE 8 — Video CD Score ---
-  animations[7] = {
+  // --- SLIDE 9 — CD Score (2 fotos) ---
+  animations[8] = {
     enterSlide() {
-      gsap.set(['#cd-title', '#cd-subtitle', '#cd-video-wrap', '#cd-caption'],
-               { opacity: 0 });
+      const root = document.getElementById('slide-9');
+      if (!root) return;
+      const photos = root.querySelectorAll('.cd-photo');
+
+      gsap.set(['#cd-title', '#cd-subtitle', '#cd-caption'], { opacity: 0 });
+      gsap.set(photos, { opacity: 0, scale: 0.95 });
 
       const tl = gsap.timeline();
       tl.fromTo('#cd-title',
@@ -323,45 +382,54 @@
       tl.fromTo('#cd-subtitle',
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3');
-      tl.fromTo('#cd-video-wrap',
-        { opacity: 0, scale: 0.96 },
-        { opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out' }, '-=0.2');
+      tl.to(photos,
+        { opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out', stagger: 0.2 },
+        '-=0.2');
       tl.fromTo('#cd-caption',
         { opacity: 0, y: 15 },
         { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3');
-    },
-    leaveSlide() {
-      const v = document.getElementById('cd-video');
-      if (v && !v.paused) v.pause();
     }
   };
 
-  // --- SLIDE 9 — Dolor maquilado ---
-  animations[8] = {
+  // --- SLIDE 10 — Dolor maquilado (split) ---
+  animations[9] = {
     enterSlide() {
-      gsap.set(['#dolor-title', '#dolor-subtitle', '#dolor-img', '#dolor-caption'],
-               { opacity: 0 });
+      const root = document.getElementById('slide-10');
+      if (!root) return;
+      const bullets = root.querySelectorAll('.dolor-bullets li');
+
+      gsap.set(['#dolor-title', '#dolor-subtitle',
+                '.slide-dolor .dolor-eyebrow',
+                '#dolor-cta', '#dolor-img'], { opacity: 0 });
+      gsap.set(bullets, { opacity: 0, x: -20 });
 
       const tl = gsap.timeline();
+      tl.fromTo('.slide-dolor .dolor-eyebrow',
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
       tl.fromTo('#dolor-title',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+        { opacity: 0, y: 30, clipPath: 'inset(0 100% 0 0)' },
+        { opacity: 1, y: 0, clipPath: 'inset(0 0% 0 0)', duration: 0.8, ease: 'power2.inOut' },
+        '-=0.1');
       tl.fromTo('#dolor-subtitle',
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3');
-      tl.fromTo('#dolor-img',
-        { opacity: 0, scale: 0.95 },
-        { opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out' }, '-=0.2');
-      tl.fromTo('#dolor-caption',
+      tl.to(bullets,
+        { opacity: 1, x: 0, duration: 0.45, ease: 'power2.out', stagger: 0.14 },
+        '-=0.2');
+      tl.fromTo('#dolor-cta',
         { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3');
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.1');
+      tl.fromTo('#dolor-img',
+        { opacity: 0, scale: 0.95, x: 24 },
+        { opacity: 1, scale: 1, x: 0, duration: 0.8, ease: 'power3.out' }, '-=1.3');
     }
   };
 
-  // --- SLIDE 10 — Cierre lite ---
-  animations[9] = {
+  // --- SLIDE 11 — Cierre lite ---
+  animations[10] = {
     enterSlide() {
-      gsap.set(['#cierre-logo', '#cierre-phrase', '#slide-10 .cierre-partner'], { opacity: 0 });
+      gsap.set(['#cierre-logo', '#cierre-phrase', '#slide-11 .cierre-partner'], { opacity: 0 });
 
       const tl = gsap.timeline();
       tl.fromTo('#cierre-logo',
@@ -370,7 +438,7 @@
       tl.fromTo('#cierre-phrase',
         { opacity: 0, y: 30 },
         { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3');
-      tl.fromTo('#slide-10 .cierre-partner',
+      tl.fromTo('#slide-11 .cierre-partner',
         { opacity: 0 },
         { opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.1');
     }
@@ -380,6 +448,9 @@
   // Bootstrap
   // ============================================================
   document.addEventListener('DOMContentLoaded', () => {
+    // Aislar todos los <video> del nav del deck
+    document.querySelectorAll('video').forEach(isolateVideo);
+
     SlideEngine.init({
       onEnterSlide(i) { animations[i]?.enterSlide?.(); },
       onEnterStep(i, s) { animations[i]?.enterStep?.(s); },
