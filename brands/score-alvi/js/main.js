@@ -430,14 +430,9 @@
   // --- SLIDE 11 — Dolor maquilado (split) ---
   animations[10] = {
     enterSlide() {
-      const root = document.getElementById('slide-11');
-      if (!root) return;
-      const bullets = root.querySelectorAll('.dolor-bullets li');
-
       gsap.set(['#dolor-title', '#dolor-subtitle',
                 '.slide-dolor .dolor-eyebrow',
-                '#dolor-cta', '#dolor-img'], { opacity: 0 });
-      gsap.set(bullets, { opacity: 0, x: -20 });
+                '#dolor-stat', '#dolor-cta', '#dolor-img'], { opacity: 0 });
 
       const tl = gsap.timeline();
       tl.fromTo('.slide-dolor .dolor-eyebrow',
@@ -450,9 +445,9 @@
       tl.fromTo('#dolor-subtitle',
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3');
-      tl.to(bullets,
-        { opacity: 1, x: 0, duration: 0.45, ease: 'power2.out', stagger: 0.14 },
-        '-=0.2');
+      tl.fromTo('#dolor-stat',
+        { opacity: 0, y: 18, scale: 0.98 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: 'power3.out' }, '-=0.2');
       tl.fromTo('#dolor-cta',
         { opacity: 0, y: 16 },
         { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.1');
