@@ -311,6 +311,47 @@
   font-size: clamp(18px, 2vw, 22px);
 }
 
+/* Rockstar aparte como chip (igual que el PPTX original) */
+.funnel-aside {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  align-self: flex-end;
+  opacity: 0;
+}
+
+.funnel-aside-icon {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  align-items: center;
+  justify-content: center;
+}
+
+.funnel-aside-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--accent);
+  opacity: 0.85;
+}
+
+.funnel-aside-name {
+  font-size: clamp(12px, 1.3vw, 14px);
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+
+.funnel-aside-pct {
+  font-size: clamp(15px, 1.7vw, 18px);
+  color: var(--text);
+}
+
 /* --- Chart ventas 2020-2030 --- */
 .market-chart {
   width: 100%;

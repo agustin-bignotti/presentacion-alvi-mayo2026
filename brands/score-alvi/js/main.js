@@ -206,6 +206,10 @@
           i === 0 ? '-=0.4' : '-=0.4');
       });
 
+      tl.fromTo('#funnel-aside',
+        { opacity: 0, x: 16 },
+        { opacity: 1, x: 0, duration: 0.45, ease: 'power2.out' }, '-=0.2');
+
       // Bar chart
       tl.fromTo('#market-chart .market-chart-eyebrow',
         { opacity: 0, y: 10 },
