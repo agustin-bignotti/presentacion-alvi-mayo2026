@@ -1,4 +1,4 @@
-/* Score × Alvi · Mayo 2026 — theme.css */
+/* Score × Alvi · Mayo 2026 — theme.css (v2) */
 
 /* ==================================================================
    SLIDE 1 — HERO
@@ -65,7 +65,88 @@
 }
 
 /* ==================================================================
-   SLIDE 2 — MERCADO: TOTAL CHILE
+   SLIDE 2 — RESUMEN SCORE 2025 (KPIs §7.2)
+   ================================================================== */
+.slide-kpis {
+  justify-content: center;
+  gap: 28px;
+  overflow: hidden;
+}
+
+.kpi-stage {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 1100px;
+  align-items: center;
+}
+
+.kpi-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: clamp(240px, 30vh, 320px);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.kpi-value {
+  font-size: clamp(80px, 10vw, 140px);
+  color: var(--accent);
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(244, 255, 0, 0.25);
+  transition: font-size 0.4s ease, text-shadow 0.4s ease;
+}
+
+.kpi-suffix,
+.kpi-prefix {
+  font-size: clamp(50px, 6vw, 80px);
+  color: var(--accent);
+  line-height: 1;
+  transition: font-size 0.4s ease;
+}
+
+.kpi-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+}
+
+.kpi-label {
+  font-size: clamp(13px, 1.4vw, 16px);
+  color: var(--text-muted);
+  margin-top: 8px;
+  max-width: 220px;
+  line-height: 1.4;
+  transition: font-size 0.4s ease, max-width 0.4s ease;
+}
+
+.kpi-card.kpi-active .kpi-value,
+.kpi-card.kpi-active .kpi-suffix,
+.kpi-card.kpi-active .kpi-prefix {
+  font-size: clamp(80px, 10vw, 140px);
+}
+
+.kpi-card.kpi-past .kpi-value {
+  font-size: clamp(36px, 4vw, 52px);
+  text-shadow: none;
+}
+
+.kpi-card.kpi-past .kpi-suffix,
+.kpi-card.kpi-past .kpi-prefix {
+  font-size: clamp(24px, 3vw, 36px);
+}
+
+.kpi-card.kpi-past .kpi-label {
+  font-size: 12px;
+  max-width: 160px;
+}
+
+/* ==================================================================
+   SLIDE 3 — MERCADO: TOTAL CHILE
    ================================================================== */
 .slide-market {
   justify-content: flex-start;
@@ -75,11 +156,12 @@
 
 .market-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.05fr;
   gap: clamp(32px, 5vw, 60px);
   width: 100%;
   max-width: 1180px;
   margin-top: 14px;
+  align-items: center;
 }
 
 /* --- Columna izquierda: KPIs + insight --- */
@@ -146,84 +228,135 @@
   margin: 0;
 }
 
-/* --- Columna derecha: Brand Shares --- */
-.market-shares {
+/* --- Columna derecha: EMBUDO de Brand Shares --- */
+.funnel-wrap {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  align-items: center;
+  width: 100%;
 }
 
-.market-shares-eyebrow {
+.funnel-eyebrow {
   display: block;
   font-size: 11px;
   font-weight: 600;
   color: var(--text-muted);
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
+  align-self: flex-start;
 }
 
-.share-row {
-  display: grid;
-  grid-template-columns: 110px 1fr 70px;
+.funnel {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 14px;
-  padding: 8px 10px;
-  background: rgba(255, 255, 255, 0.015);
-  border-left: 2px solid transparent;
-  border-radius: 4px;
+  width: 100%;
+  gap: 3px;
 }
 
-.share-row-highlight {
-  background: rgba(244, 255, 0, 0.06);
-  border-left-color: var(--accent);
-}
-
-.share-name {
-  font-size: clamp(13px, 1.4vw, 15px);
-  font-weight: 600;
-  color: var(--text);
-}
-
-.share-row-highlight .share-name {
-  color: var(--accent);
-}
-
-.share-bar {
-  height: 8px;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.share-bar-fill {
-  height: 100%;
+.funnel-slice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 12px 24px;
+  height: clamp(38px, 5vh, 52px);
+  background: linear-gradient(90deg,
+              rgba(255, 255, 255, 0.05),
+              rgba(255, 255, 255, 0.12),
+              rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  clip-path: polygon(0% 0%, 100% 0%, calc(100% - 12px) 100%, 12px 100%);
   width: 0%;
-  background: linear-gradient(90deg, rgba(244, 255, 0, 0.35), rgba(244, 255, 0, 0.7));
-  border-radius: 4px;
-  transform-origin: left center;
-}
-
-.share-row-highlight .share-bar-fill {
-  background: linear-gradient(90deg, rgba(244, 255, 0, 0.6), var(--accent));
-  box-shadow: 0 0 16px rgba(244, 255, 0, 0.4);
-}
-
-.share-num {
-  font-size: clamp(15px, 1.7vw, 19px);
+  min-width: 220px;
   color: var(--text);
-  text-align: right;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
 }
 
-.share-row-highlight .share-num {
-  color: var(--accent);
+.funnel-slice-highlight {
+  background: linear-gradient(90deg,
+              rgba(244, 255, 0, 0.25),
+              rgba(244, 255, 0, 0.85),
+              rgba(244, 255, 0, 0.25));
+  border-color: var(--accent);
+  box-shadow: 0 0 28px rgba(244, 255, 0, 0.35);
+  height: clamp(48px, 6.4vh, 64px);
+}
+
+.funnel-slice-highlight .funnel-name,
+.funnel-slice-highlight .funnel-pct {
+  color: #000;
+}
+
+.funnel-name {
+  font-size: clamp(13px, 1.5vw, 16px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.funnel-slice-highlight .funnel-name {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.funnel-pct {
+  font-size: clamp(15px, 1.7vw, 19px);
+}
+
+.funnel-slice-highlight .funnel-pct {
+  font-size: clamp(18px, 2vw, 22px);
+}
+
+/* Rockstar aparte como chip (igual que el PPTX original) */
+.funnel-aside {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  align-self: flex-end;
+  opacity: 0;
+}
+
+.funnel-aside-icon {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  align-items: center;
+  justify-content: center;
+}
+
+.funnel-aside-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--accent);
+  opacity: 0.85;
+}
+
+.funnel-aside-name {
+  font-size: clamp(12px, 1.3vw, 14px);
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+
+.funnel-aside-pct {
+  font-size: clamp(15px, 1.7vw, 18px);
+  color: var(--text);
 }
 
 /* --- Chart ventas 2020-2030 --- */
 .market-chart {
   width: 100%;
   max-width: 1180px;
-  margin-top: 22px;
+  margin-top: 18px;
 }
 
 .market-chart-eyebrow {
@@ -241,7 +374,7 @@
   grid-template-columns: repeat(11, 1fr);
   gap: 6px;
   align-items: end;
-  height: 140px;
+  height: 120px;
   padding-top: 22px;
   border-bottom: 1px solid var(--border);
 }
@@ -283,8 +416,7 @@
   white-space: nowrap;
 }
 
-.market-bar-now .market-bar-value,
-.slide-market .market-bar-now .market-bar-value {
+.market-bar-now .market-bar-value {
   color: var(--accent);
   font-weight: 700;
 }
@@ -305,144 +437,169 @@
 }
 
 /* ==================================================================
-   SLIDES 3 & 4 — TABLA RESULTADOS YTD (§7.7)
+   SLIDES 4 & 5 — RESULTADOS YTD (hero number + bullets)
    ================================================================== */
-.slide-cadenas {
+.slide-result {
   justify-content: flex-start;
-  padding-top: 80px;
+  padding-top: 64px;
+  gap: 18px;
 }
 
-.cadenas-wrap {
+.result-hero {
   width: 100%;
-  max-width: 1080px;
-  margin-top: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  max-width: 880px;
+  margin-top: 22px;
+  padding: 28px 36px 32px;
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg,
+              rgba(244, 255, 0, 0.07),
+              rgba(244, 255, 0, 0.02));
+  border-left: 3px solid var(--accent);
+  border-radius: 14px;
+  position: relative;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
 }
 
-.cadenas-header,
-.cadenas-row {
-  display: grid;
-  grid-template-columns: 1.2fr 1.4fr 1.4fr 0.9fr 1.4fr;
-  align-items: center;
-  gap: 20px;
-  padding: 14px 22px;
-}
-
-.cadenas-header {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 10px;
-  padding-top: 0;
-}
-
-.cadenas-col-val,
-.cadenas-col-delta {
-  text-align: right;
-}
-
-.cadenas-row {
-  background: rgba(255, 255, 255, 0.015);
-  border-left: 2px solid transparent;
-  border-radius: 4px;
-}
-
-.cadenas-highlight {
-  background: rgba(244, 255, 0, 0.06);
-  border-left-color: var(--accent);
-}
-
-.cadenas-total {
-  margin-top: 6px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-  background: transparent;
-  font-family: 'Bebas Neue', cursive;
-  letter-spacing: 0.04em;
-}
-
-.cadenas-name {
-  font-size: clamp(14px, 1.7vw, 18px);
-  font-weight: 600;
-  color: var(--text);
-}
-
-.cadenas-highlight .cadenas-name {
-  color: var(--accent);
-}
-
-.cadenas-val {
-  font-size: clamp(14px, 1.6vw, 17px);
-  color: var(--text);
-  font-variant-numeric: tabular-nums;
-  text-align: right;
-}
-
-.cadenas-delta {
-  font-size: clamp(13px, 1.5vw, 16px);
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  text-align: right;
-}
-
-.cadenas-delta-pos {
-  color: #6ed78a;
-}
-
-.cadenas-delta-neg {
-  color: #e07a6a;
-}
-
-.cadenas-total .cadenas-name,
-.cadenas-total .cadenas-val,
-.cadenas-total .cadenas-delta {
-  font-size: clamp(18px, 2vw, 22px);
-  color: var(--text);
-}
-
-.cadenas-total .cadenas-delta-pos {
-  color: #6ed78a;
-}
-
-.cadenas-insight {
-  width: 100%;
-  max-width: 1080px;
-  margin-top: 26px;
-  padding: 16px 22px;
-  border-left: 2px solid var(--accent);
-  background: rgba(244, 255, 0, 0.04);
-  border-radius: 0 8px 8px 0;
-}
-
-.cadenas-insight-eyebrow {
+.result-eyebrow {
   display: block;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 6px;
-}
-
-.cadenas-insight p {
-  font-size: clamp(14px, 1.55vw, 17px);
-  color: var(--text);
-  line-height: 1.5;
-  margin: 0;
-}
-
-.cadenas-insight em {
-  font-style: italic;
   color: var(--text-muted);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.result-amount-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  line-height: 0.95;
+}
+
+.result-currency {
+  font-size: clamp(34px, 4vw, 52px);
+  color: var(--accent);
+}
+
+.result-amount {
+  font-size: clamp(64px, 8vw, 110px);
+  color: var(--accent);
+  text-shadow: 0 0 50px rgba(244, 255, 0, 0.3);
+  font-variant-numeric: tabular-nums;
+}
+
+.result-unit {
+  font-size: clamp(30px, 3.5vw, 46px);
+  color: var(--accent);
+  margin-left: 10px;
+}
+
+.result-delta-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.result-delta-chip {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(110, 215, 138, 0.15);
+  border: 1px solid rgba(110, 215, 138, 0.4);
+  color: #6ed78a;
+  font-size: clamp(13px, 1.4vw, 15px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.result-delta-abs {
+  font-size: clamp(14px, 1.5vw, 17px);
+  color: #6ed78a;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.result-prev {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border);
+}
+
+.result-prev-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.result-prev-value {
+  font-size: clamp(15px, 1.6vw, 18px);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.result-claves {
+  list-style: none;
+  margin: 26px 0 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  width: 100%;
+  max-width: 880px;
+}
+
+.result-clave {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.025);
+  border-radius: 10px;
+  border-left: 2px solid var(--border);
+  opacity: 0;
+}
+
+.result-clave-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(244, 255, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(244, 255, 0, 0.35);
+}
+
+.result-clave-icon svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.result-clave-body {
+  font-size: clamp(13px, 1.4vw, 15px);
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.result-clave-body strong {
+  color: var(--accent);
+  font-weight: 700;
 }
 
 /* ==================================================================
-   SLIDE 5 — PROYECCIONES 2026
+   SLIDE 6 — PROYECCIONES 2026
    ================================================================== */
 .slide-proj {
   justify-content: flex-start;
@@ -566,7 +723,7 @@
 }
 
 /* ==================================================================
-   SLIDE 6 — SECTION INTRO (§7.3)
+   SLIDE 7 — SECTION INTRO (§7.3)
    ================================================================== */
 .slide-section-intro {
   align-items: center;
@@ -619,7 +776,7 @@
 }
 
 /* ==================================================================
-   SLIDES 7 & 8 — VIDEO PROTAGONISTA
+   SLIDE 8 — VIDEO POLONIA
    ================================================================== */
 .slide-video {
   justify-content: flex-start;
@@ -662,47 +819,187 @@
 }
 
 /* ==================================================================
-   SLIDE 9 — FOTO MAQUILADO
+   SLIDE 9 — CD SCORE (foto + video)
    ================================================================== */
-.slide-foto {
+.slide-cd {
   justify-content: flex-start;
   padding-top: 60px;
   gap: 16px;
 }
 
-.foto-wrap {
+.cd-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
   width: 100%;
-  max-width: 560px;
-  margin-top: 14px;
+  max-width: 1120px;
+  margin-top: 18px;
+  align-items: stretch;
 }
 
-.foto-wrap img {
-  width: 100%;
-  height: auto;
+.cd-photo {
+  position: relative;
+  margin: 0;
   border-radius: 14px;
+  overflow: hidden;
+  background: #000;
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55),
               0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
-.dolor-caption {
+.cd-photo img {
   width: 100%;
-  max-width: 720px;
-  margin-top: 24px;
-  padding: 14px 22px;
-  border-left: 2px solid var(--accent);
-  background: rgba(244, 255, 0, 0.04);
-  border-radius: 0 8px 8px 0;
+  height: 100%;
+  max-height: 52vh;
+  object-fit: cover;
+  display: block;
 }
 
-.dolor-caption p {
-  font-size: clamp(14px, 1.55vw, 17px);
+.cd-photo figcaption {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--text);
-  line-height: 1.5;
-  margin: 0;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
 }
 
 /* ==================================================================
-   SLIDE 10 — CIERRE (variante B lite, §7.12)
+   SLIDE 10 — DOLOR MAQUILADO (split layout)
+   ================================================================== */
+.slide-dolor {
+  justify-content: center;
+  padding: 60px 80px;
+}
+
+.dolor-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 60px);
+  width: 100%;
+  max-width: 1180px;
+  align-items: center;
+}
+
+.dolor-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 520px;
+}
+
+.dolor-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.dolor-title {
+  font-size: clamp(56px, 8vw, 110px);
+  line-height: 0.95;
+  margin: 0 0 18px 0;
+  color: var(--text);
+}
+
+.dolor-title .accent {
+  text-shadow: 0 0 50px rgba(244, 255, 0, 0.35);
+}
+
+.dolor-subtitle {
+  font-size: clamp(15px, 1.7vw, 18px);
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0 0 22px 0;
+}
+
+.dolor-stat {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  width: 100%;
+  margin: 0 0 24px 0;
+  padding: 22px 24px;
+  background: linear-gradient(135deg,
+              rgba(244, 255, 0, 0.07),
+              rgba(244, 255, 0, 0.02));
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+.dolor-stat-icon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(244, 255, 0, 0.08);
+  border: 1px solid rgba(244, 255, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dolor-stat-icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--accent);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dolor-stat-text {
+  margin: 0;
+  font-size: clamp(16px, 1.85vw, 21px);
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.dolor-stat-text strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.dolor-cta {
+  display: inline-block;
+  padding: 12px 18px;
+  border-left: 2px solid var(--accent);
+  background: rgba(244, 255, 0, 0.06);
+  border-radius: 0 8px 8px 0;
+  font-size: clamp(14px, 1.5vw, 17px);
+  color: var(--text);
+  font-weight: 500;
+}
+
+.dolor-photo {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6),
+              0 0 0 1px rgba(255, 255, 255, 0.06);
+  max-height: 70vh;
+}
+
+.dolor-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  max-height: 70vh;
+}
+
+/* ==================================================================
+   SLIDE 11 — CIERRE (variante B lite)
    ================================================================== */
 .slide-cierre {
   text-align: center;
@@ -741,105 +1038,49 @@
    ================================================================== */
 @media (max-width: 768px) {
 
-  .slide-hero {
-    padding: 0;
-  }
+  .slide-hero { padding: 0; }
+  .hero-year  { font-size: clamp(64px, 18vw, 100px); }
 
-  .hero-year {
-    font-size: clamp(64px, 18vw, 100px);
-  }
+  /* KPIs Resumen */
+  .kpi-stage { grid-template-columns: repeat(2, 1fr); gap: 28px; }
 
   /* Mercado */
-  .slide-market {
-    padding-top: 48px;
-  }
+  .slide-market { padding-top: 48px; }
+  .market-layout { grid-template-columns: 1fr; gap: 28px; }
+  .market-bars { grid-template-columns: repeat(11, 1fr); height: 110px; gap: 3px; }
+  .market-bar-value { font-size: 8px; top: -14px; }
+  .market-bar-year { font-size: 8px; }
+  .funnel-slice { min-width: 180px; padding: 8px 16px; gap: 12px; }
 
-  .market-layout {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .market-bars {
-    grid-template-columns: repeat(11, 1fr);
-    height: 110px;
-    gap: 3px;
-  }
-
-  .market-bar-value {
-    font-size: 8px;
-    top: -14px;
-  }
-
-  .market-bar-year {
-    font-size: 8px;
-  }
-
-  /* Cadenas */
-  .slide-cadenas {
-    padding-top: 56px;
-  }
-
-  .cadenas-header,
-  .cadenas-row {
-    grid-template-columns: 1fr 1.3fr 1fr;
-    gap: 10px;
-    padding: 10px 12px;
-    font-size: 12px;
-  }
-
-  /* Esconder columnas menos críticas en mobile */
-  .cadenas-header :nth-child(3),
-  .cadenas-header :nth-child(5),
-  .cadenas-row :nth-child(3),
-  .cadenas-row :nth-child(5) {
-    display: none;
-  }
+  /* Resultados YTD */
+  .slide-result { padding-top: 48px; }
+  .result-hero { padding: 20px 22px 24px; }
+  .result-claves { grid-template-columns: 1fr; }
 
   /* Proyecciones */
-  .slide-proj {
-    padding-top: 48px;
-  }
-
-  .proj-cards {
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .proj-arrow {
-    transform: rotate(90deg);
-  }
-
-  .proj-claves {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
+  .slide-proj { padding-top: 48px; }
+  .proj-cards { flex-direction: column; gap: 18px; }
+  .proj-arrow { transform: rotate(90deg); }
+  .proj-claves { grid-template-columns: 1fr; gap: 8px; }
 
   /* Section intro */
   .section-number::before,
-  .section-number::after {
-    width: 24px;
-  }
+  .section-number::after { width: 24px; }
 
   /* Video */
-  .slide-video {
-    padding-top: 48px;
-  }
+  .slide-video { padding-top: 48px; }
+  .video-wrap video { max-height: 45vh; }
 
-  .video-wrap video {
-    max-height: 45vh;
-  }
+  /* CD photos */
+  .cd-grid { grid-template-columns: 1fr; }
+  .cd-photo img { max-height: 35vh; }
 
-  /* Foto */
-  .slide-foto {
-    padding-top: 48px;
-  }
-
-  .foto-wrap {
-    max-width: 90vw;
-  }
+  /* Dolor */
+  .slide-dolor { padding: 48px 22px 70px; }
+  .dolor-layout { grid-template-columns: 1fr; gap: 24px; }
+  .dolor-photo  { max-height: 42vh; }
+  .dolor-photo img { max-height: 42vh; }
 
   /* Cierre */
-  .cierre-phrase {
-    font-size: clamp(34px, 9vw, 60px);
-  }
+  .cierre-phrase { font-size: clamp(34px, 9vw, 60px); }
 }
