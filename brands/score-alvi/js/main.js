@@ -368,17 +368,15 @@
     }
   };
 
-  // --- SLIDE 9 — CD Score (foto + video) ---
+  // --- SLIDE 9 — CD Score (2 fotos) ---
   animations[8] = {
     enterSlide() {
-      disableClickZones();
-
       const root = document.getElementById('slide-9');
       if (!root) return;
-      const tiles = root.querySelectorAll('.cd-photo, .cd-video-wrap');
+      const photos = root.querySelectorAll('.cd-photo');
 
       gsap.set(['#cd-title', '#cd-subtitle', '#cd-caption'], { opacity: 0 });
-      gsap.set(tiles, { opacity: 0, scale: 0.95 });
+      gsap.set(photos, { opacity: 0, scale: 0.95 });
 
       const tl = gsap.timeline();
       tl.fromTo('#cd-title',
@@ -387,17 +385,12 @@
       tl.fromTo('#cd-subtitle',
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3');
-      tl.to(tiles,
+      tl.to(photos,
         { opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out', stagger: 0.2 },
         '-=0.2');
       tl.fromTo('#cd-caption',
         { opacity: 0, y: 15 },
         { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3');
-    },
-    leaveSlide() {
-      enableClickZones();
-      const v = document.getElementById('cd-video');
-      if (v && !v.paused) v.pause();
     }
   };
 
