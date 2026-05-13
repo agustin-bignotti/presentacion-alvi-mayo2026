@@ -375,39 +375,10 @@
     }
   };
 
-  // --- SLIDE 9 — Video CD Score ---
+  // --- SLIDE 9 — CD Score (2 fotos) ---
   animations[8] = {
     enterSlide() {
-      disableClickZones();
-
-      gsap.set(['#cd-video-title', '#cd-video-subtitle', '#cd-video-wrap', '#cd-video-caption'],
-               { opacity: 0 });
-
-      const tl = gsap.timeline();
-      tl.fromTo('#cd-video-title',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
-      tl.fromTo('#cd-video-subtitle',
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3');
-      tl.fromTo('#cd-video-wrap',
-        { opacity: 0, scale: 0.96 },
-        { opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out' }, '-=0.2');
-      tl.fromTo('#cd-video-caption',
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3');
-    },
-    leaveSlide() {
-      enableClickZones();
-      const v = document.getElementById('cd-video');
-      if (v && !v.paused) v.pause();
-    }
-  };
-
-  // --- SLIDE 10 — CD Score (2 fotos) ---
-  animations[9] = {
-    enterSlide() {
-      const root = document.getElementById('slide-10');
+      const root = document.getElementById('slide-9');
       if (!root) return;
       const photos = root.querySelectorAll('.cd-photo');
 
@@ -430,9 +401,11 @@
     }
   };
 
-  // --- SLIDE 11 — Dolor maquilado (split) ---
-  animations[10] = {
+  // --- SLIDE 10 — Dolor maquilado (split, ahora con video) ---
+  animations[9] = {
     enterSlide() {
+      disableClickZones();
+
       gsap.set(['#dolor-title', '#dolor-subtitle',
                 '.slide-dolor .dolor-eyebrow',
                 '#dolor-stat', '#dolor-cta', '#dolor-img'], { opacity: 0 });
@@ -457,13 +430,18 @@
       tl.fromTo('#dolor-img',
         { opacity: 0, scale: 0.95, x: 24 },
         { opacity: 1, scale: 1, x: 0, duration: 0.8, ease: 'power3.out' }, '-=1.3');
+    },
+    leaveSlide() {
+      enableClickZones();
+      const v = document.getElementById('dolor-video');
+      if (v && !v.paused) v.pause();
     }
   };
 
-  // --- SLIDE 12 — Cierre lite ---
-  animations[11] = {
+  // --- SLIDE 11 — Cierre lite ---
+  animations[10] = {
     enterSlide() {
-      gsap.set(['#cierre-logo', '#cierre-phrase', '#slide-12 .cierre-partner'], { opacity: 0 });
+      gsap.set(['#cierre-logo', '#cierre-phrase', '#slide-11 .cierre-partner'], { opacity: 0 });
 
       const tl = gsap.timeline();
       tl.fromTo('#cierre-logo',
@@ -472,7 +450,7 @@
       tl.fromTo('#cierre-phrase',
         { opacity: 0, y: 30 },
         { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3');
-      tl.fromTo('#slide-12 .cierre-partner',
+      tl.fromTo('#slide-11 .cierre-partner',
         { opacity: 0 },
         { opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.1');
     }
