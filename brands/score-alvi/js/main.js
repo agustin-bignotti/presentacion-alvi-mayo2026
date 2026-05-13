@@ -81,23 +81,26 @@
                { opacity: 0 });
 
       const tl = gsap.timeline();
-      tl.to('.hero-bg', { opacity: 0.08, duration: 0.8, ease: 'power2.out' });
+      tl.to('.hero-bg',
+        { opacity: 0.08, duration: 0.4, ease: 'power2.out' });
       tl.fromTo('#hero-logo',
-        { opacity: 0, scale: 1.5 },
-        { opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out' }, '-=0.6');
-      tl.to('#hero-logo', {
-        filter: 'drop-shadow(0 0 60px rgba(244,255,0,0.55))',
-        duration: 1.4, ease: 'sine.inOut', repeat: 1, yoyo: true
-      }, '-=0.3');
+        { opacity: 0, scale: 1.3 },
+        { opacity: 1, scale: 1, duration: 0.5, ease: 'power3.out' }, '-=0.3');
       tl.fromTo('#hero-year',
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=1.6');
+        { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.2');
       tl.fromTo('#hero-subtitle',
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=1.2');
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' }, '-=0.25');
       tl.fromTo('#hero-partner',
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.9');
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' }, '-=0.2');
+
+      // Glow ambient (no bloquea la cascada, corre en paralelo)
+      gsap.to('#hero-logo', {
+        filter: 'drop-shadow(0 0 60px rgba(244,255,0,0.55))',
+        duration: 1.2, ease: 'sine.inOut', repeat: 1, yoyo: true, delay: 0.6
+      });
     }
   };
 
