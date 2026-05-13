@@ -451,9 +451,6 @@
   // Bootstrap
   // ============================================================
   document.addEventListener('DOMContentLoaded', () => {
-    // Aislar todos los <video> del nav del deck
-    document.querySelectorAll('video').forEach(isolateVideo);
-
     SlideEngine.init({
       onEnterSlide(i) { animations[i]?.enterSlide?.(); },
       onEnterStep(i, s) { animations[i]?.enterStep?.(s); },
